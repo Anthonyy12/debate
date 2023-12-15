@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import IngresoUsuario from './IngresoUsuario';
+import ElegirTema from './ElegirTema';
+import Tema1 from './components/Tema1';
+import Tema2 from './components/Tema2';
+import Tema3 from './components/Tema3';
+import { PreguntasProvider } from './components/ListaPreguntas';
 
 function App() {
+  const [usuario, setUsuario] = useState('');
+
+  const handleIngresarUsuario = (nombreUsuario) => {
+    setUsuario(nombreUsuario);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <PreguntasProvider>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/"
+            element={<IngresoUsuario onIngresar={handleIngresarUsuario} />}
+          />
+          <Route path="/elegir-tema" element={<ElegirTema />} />
+          <Route path="/tema1" element={<Tema1 />} />
+          <Route path="/tema2" element={<Tema2 />} />
+          <Route path="/tema3" element={<Tema3 />} />
+        </Routes>
+      </div>
+    </Router>
+    </PreguntasProvider>
+    
   );
 }
 
